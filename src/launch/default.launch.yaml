@@ -1,0 +1,33 @@
+launch:
+
+  - arg:
+      name: "hub_ui_pkg_dir"
+      default: "$(dirname)/.."
+  - arg:
+      name: "hub_ui_port"
+      default: "8000"
+  - arg:
+      name: "ws_server_port"
+      default: "9090"
+
+  - include:
+      file: "$(find-pkg-share rosbridge_server)/launch/rosbridge_websocket_launch.xml"
+      arg:
+          - name: "port"
+            value: "$(var ws_server_port)"
+      # <arg name="port" default="9090" />
+      # <arg name="address" default="" />
+      # <arg name="ssl" default="false" />
+      # <arg name="certfile" default=""/>
+      # <arg name="keyfile" default="" />
+
+  - node:
+      pkg: "soma_kit_hub"
+      exec: "hub"
+      name: "hub"
+      namespace: "soma_kit_hub"
+      param:
+          - name: "pkg_dir"
+            value: "$(var hub_ui_pkg_dir)"
+          - name: "port"
+            value: "$(var hub_ui_port)"

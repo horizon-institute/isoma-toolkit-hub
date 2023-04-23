@@ -1,0 +1,11 @@
+version: "3"
+services:
+  hub:
+    build: .
+    environment:
+      - HUB_UI_PKG_DIR=/soma-kit-hub_ws/src/soma_kit_hub
+      - HUB_UI_PORT=8000
+      - WS_SERVER_PORT=9090
+    privileged: true
+    volumes:
+      - /var/run/dbus:/var/run/dbus
